@@ -14,6 +14,9 @@ if st.button("Load Data"):
     
     # Download data
     df = yf.download(ticker, start=start, end=end)
+    # Fix MultiIndex columns
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = df.columns.get_level_values(0)
 
     if df.empty:
         st.error("No data found. Check ticker or dates.")
