@@ -14,13 +14,13 @@ if st.button("Load Data"):
 
     df = yf.download(ticker, start=start, end=end)
 
-    if isinstance(df.columns, pd.MultiIndex):
-        df.columns = df.columns.get_level_values(0)
-
-    if df.empty:
+       if df.empty:
         st.error("No data found.")
         st.stop()
 
+ if isinstance(df.columns, pd.MultiIndex):
+        df.columns = df.columns.get_level_values(0)
+     
     # Indicators
     df['sma'] = df['Close'].rolling(20).mean()
     df['lma'] = df['Close'].rolling(50).mean()
